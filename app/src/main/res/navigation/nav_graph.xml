@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/userInputFragment">
+
+    <fragment
+        android:id="@+id/userInputFragment"
+        android:name="ru.lt.mvi_user.view.UserInputFragment"
+        android:label="@string/fragment1"
+        tools:layout="@layout/fragment_user_input" >
+        <action
+            android:id="@+id/action_userInputFragment_to_userInputFragment2"
+            app:destination="@id/userInputFragment2" />
+        <action
+            android:id="@+id/action_userInputFragment_to_userInputFragment3"
+            app:destination="@id/userInputFragment3" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userInputFragment2"
+        android:name="ru.lt.mvi_user.view.UserInputFragmentAddress"
+        android:label="@string/fragment2"
+        tools:layout="@layout/fragment_user_input2" >
+        <action
+            android:id="@+id/action_userInputFragment2_to_userInputFragment3"
+            app:destination="@id/userInputFragment3" />
+        <action
+            android:id="@+id/action_userInputFragment2_to_userInputFragment4"
+            app:destination="@id/userInputFragment4" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userInputFragment3"
+        android:name="ru.lt.mvi_user.view.UserInputFragmentTags"
+        android:label="@string/fragment3"
+        tools:layout="@layout/fragment_user_input3" >
+        <action
+            android:id="@+id/action_userInputFragment3_to_userInputFragment4"
+            app:destination="@id/userInputFragment4" />
+        <action
+            android:id="@+id/action_userInputFragment3_to_userInputFragment2"
+            app:destination="@id/userInputFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userInputFragment4"
+        android:name="ru.lt.mvi_user.view.UserInputFragmentLast"
+        android:label="@string/fragment4"
+        tools:layout="@layout/fragment_user_input4" >
+    </fragment>
+
+
+</navigation>

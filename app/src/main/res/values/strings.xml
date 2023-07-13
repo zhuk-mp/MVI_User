@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MVI_User</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилию</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="next">Далее</string>
+    <string name="country">Страна</string>
+    <string name="city">Город</string>
+    <string name="address">Адрес</string>
+    <string name="selectedtags">Выберите интересы</string>
+    <string name="address_textView">Адрес проживания</string>
+    <string name="selectedtags_out">Интересы</string>
+    <string name="fragment1">Личные данные</string>
+    <string name="fragment2">Адрес прожтвания</string>
+    <string name="fragment3">Интересы</string>
+    <string name="fragment4">Личная карточка</string>
+    <string name="error">Ошибка</string>
+    <string name="not18">not18_error</string>
+    <string name="not18_error">Доступ запрещен</string>
+    <string name="full_address">1%s, 2%s, 3%s</string>
+    <string name="formatDate">%s.</string>
+    <string name="switch_text">Смена последовательности экранов</string>
+    <string name="not_lose">Обязательное</string>
+    <string name="forma_date">Введите дату в формате ДД.ММ.ГГГГ</string>
+    <string name="min_length">Минимум 3 символа</string>
+    <string-array name="tags">
+        <item>Android</item>
+        <item>Kotlin</item>
+        <item>Fragment</item>
+        <item>Tag</item>
+        <item>Cloud</item>
+    </string-array>
+</resources>
