@@ -22,43 +22,43 @@ class UserInputFragmentLast : Fragment(R.layout.fragment_user_input4) {
     private var _binding: FragmentUserInput4Binding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUserInput4Binding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Задаем наблюдателей за изменением состояния
-        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
-            binding.firstNameTextView.text = state.firstName
-            binding.lastNameTextView.text = state.lastName
-            binding.dateOfBirthTextView.text = state.dateOfBirth
-            binding.addressTextView.text = viewModel.support.context.resources.getString(
-                R.string.full_address, state.country, state.city, state.address
-            )
-            state.selectedTags.forEach { tag ->
-                val textView = TextView(context).apply {
-                    text = tag
-                    textSize = 24f
-                    setTextColor(Color.WHITE)
-                    setPadding(20, 12, 20, 12)
-                    setBackgroundResource(R.drawable.tag_background2)
-
-                }
-                val lp = FlexboxLayout.LayoutParams(
-                    FlexboxLayout.LayoutParams.WRAP_CONTENT,
-                    FlexboxLayout.LayoutParams.WRAP_CONTENT
-                )
-                lp.setMargins(30, 30, 30, 30)
-                binding.tagContainer.addView(textView, lp)
-            }
-        })
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        _binding = FragmentUserInput4Binding.inflate(inflater, container, false)
+//        return binding.root
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        // Задаем наблюдателей за изменением состояния
+//        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
+//            binding.firstNameTextView.text = state.firstName
+//            binding.lastNameTextView.text = state.lastName
+//            binding.dateOfBirthTextView.text = state.dateOfBirth
+//            binding.addressTextView.text = viewModel.support.context.resources.getString(
+//                R.string.full_address, state.country, state.city, state.address
+//            )
+//            state.selectedTags.forEach { tag ->
+//                val textView = TextView(context).apply {
+//                    text = tag
+//                    textSize = 24f
+//                    setTextColor(Color.WHITE)
+//                    setPadding(20, 12, 20, 12)
+//                    setBackgroundResource(R.drawable.tag_background2)
+//
+//                }
+//                val lp = FlexboxLayout.LayoutParams(
+//                    FlexboxLayout.LayoutParams.WRAP_CONTENT,
+//                    FlexboxLayout.LayoutParams.WRAP_CONTENT
+//                )
+//                lp.setMargins(30, 30, 30, 30)
+//                binding.tagContainer.addView(textView, lp)
+//            }
+//        })
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

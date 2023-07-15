@@ -42,15 +42,17 @@ class Support @Inject constructor(
     }
 
 
-    fun isValidFields(fields: String, isClickFirst: Boolean, isDate: Boolean = false, isCorrectDate: Boolean = true): String? {
-        return when {
-            !isCorrectDate -> getString(R.string.forma_date)
-            isClickFirst -> null
-            fields.isEmpty() -> getString(R.string.not_lose)
-            fields.length < 10 && isDate-> getString(R.string.forma_date)
-            fields.length < 3 -> getString(R.string.min_length)
-            else -> null
-        }
+    fun isValidFields(fields: String?, isClickFirst: Boolean, isDate: Boolean = false, isCorrectDate: Boolean = true): String? {
+        return if (fields != null) {
+            when {
+                !isCorrectDate -> getString(R.string.forma_date)
+                isClickFirst -> null
+                fields.isEmpty() -> getString(R.string.not_lose)
+                fields.length < 10 && isDate-> getString(R.string.forma_date)
+                fields.length < 3 -> getString(R.string.min_length)
+                else -> null
+            }
+        } else null
     }
 
     fun log(str: String, toast: Boolean = false){
