@@ -17,7 +17,7 @@
     <string name="error">Ошибка</string>
     <string name="not18">not18_error</string>
     <string name="not18_error">Доступ запрещен</string>
-    <string name="full_address">1%s, 2%s, 3%s</string>
+    <string name="full_address">%s, %s, %s</string>
     <string name="formatDate">%s.</string>
     <string name="switch_text">Смена последовательности экранов</string>
     <string name="not_lose">Обязательное</string>

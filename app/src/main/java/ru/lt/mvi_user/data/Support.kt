@@ -40,7 +40,8 @@ class Support @Inject constructor(
                 fields.length < 3 -> getString(R.string.min_length)
                 else -> null
             }
-        } else null
+        } else if (isClickFirst) null
+        else getString(R.string.not_lose)
     }
 
     fun log(str: String, toast: Boolean = false){
