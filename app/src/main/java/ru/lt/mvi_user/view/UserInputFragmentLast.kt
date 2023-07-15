@@ -33,10 +33,8 @@ class UserInputFragmentLast : Fragment(R.layout.fragment_user_input4) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.support.log()
-
         // Задаем наблюдателей за изменением состояния
-        viewModel.support.state.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
             binding.firstNameTextView.text = state.firstName
             binding.lastNameTextView.text = state.lastName
             binding.dateOfBirthTextView.text = state.dateOfBirth

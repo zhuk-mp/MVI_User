@@ -1,4 +1,4 @@
-package ru.lt.mvi_user.data
+package ru.lt.mvi_user.state
 
 sealed class ValidateState {
     object Ok : ValidateState()

@@ -39,14 +39,14 @@ class UserInputFragmentTags : Fragment(R.layout.fragment_user_input3) {
 
         lifecycleScope.launch  {
             viewModel.navigateToNextScreen.collect {
-                findNavController().navigate(viewModel.support.state.value!!.next)
+                findNavController().navigate(viewModel.state.value!!.next)
             }
         }
 
         val tagTextViews = mutableListOf<TextView>()
 
         // Задаем наблюдателей за изменением состояния
-        viewModel.support.state.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
             val selectedTags = state.selectedTags
             tagTextViews.forEach { textView ->
                 val shouldSelect = textView.text in selectedTags

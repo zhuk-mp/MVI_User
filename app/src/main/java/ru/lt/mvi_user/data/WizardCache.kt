@@ -6,11 +6,12 @@ import javax.inject.Singleton
 
 @Singleton
 class WizardCache @Inject constructor() {
-    var firstName: String? = null
-    var lastName: String? = null
-    var dateOfBirth: String? = null
-    var country: String? = null
-    var city: String? = null
-    var address: String? = null
+    var firstName = ""
+    var lastName = ""
+    var dateOfBirth = ""
+    var country = ""
+    var city = ""
+    var address = ""
     var selectedTags: MutableList<String> = mutableListOf()
+    var check: Boolean = false
 }

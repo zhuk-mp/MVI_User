@@ -38,12 +38,12 @@ class UserInputFragmentAddress : Fragment(R.layout.fragment_user_input2) {
 
         lifecycleScope.launch  {
             viewModel.navigateToNextScreen.collect {
-                findNavController().navigate(viewModel.support.state.value!!.next)
+                findNavController().navigate(viewModel.state.value!!.next)
             }
         }
 
         // Задаем наблюдателей за изменением состояния
-        viewModel.support.state.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
             if (binding.countryEditText.text.toString() != state.country) {
                 binding.countryEditText.setText(state.country, TextView.BufferType.EDITABLE)
             }
