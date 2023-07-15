@@ -9,5 +9,4 @@ sealed class Intent {
     data class AddressEntered(val address: String) : Intent()
     data class SwitchEntered(val check: Boolean) : Intent()
     data class TagEntered(val tag: String, val isSelected: Boolean) : Intent()
-    object NextEntered : Intent()
 }

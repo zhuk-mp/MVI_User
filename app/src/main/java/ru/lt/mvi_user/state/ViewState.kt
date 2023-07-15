@@ -21,14 +21,19 @@ sealed class  ViewState {
         val address: String? = null,
         val addressError: String? = null,
         val next: Int? = null,
-        val check: Boolean? = null,
     )
 
     data class Tag (
-        val isClickFirst: Boolean? = null,
         val next: Int? = null,
         val selectedTags: MutableList<String>? = null,
-        val check: Boolean? = null,
+    )
+
+    data class Last (
+        val name: String? = null,
+        val lastName: String? = null,
+        val bd: String? = null,
+        val fullAddress: String? = null,
+        val selectedTags: MutableList<String>? = null,
     )
 
 }

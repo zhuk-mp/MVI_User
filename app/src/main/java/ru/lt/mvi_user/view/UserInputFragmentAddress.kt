@@ -34,14 +34,13 @@ class UserInputFragmentAddress : Fragment(R.layout.fragment_user_input2) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.viewState.observe(viewLifecycleOwner) { state ->
-//            viewModel.support.log()
-            viewModel.support.log("Address "+viewModel.data.toString())
             updateAddressInput(state)
-            if (state.next != null)
-//                viewModel.support.log(state.next.toString())
-                findNavController().navigate(state.next)
+            if (state.next != null) {
+                if (state.countryError == null && state.cityError == null && state.addressError == null)
+                    findNavController().navigate(state.next)
+                else viewModel.updateViewState { copy(next = null) }
+            }
         }
-
 
         binding.countryEditText.doAfterTextChanged {
             viewModel.onCountryEntered(it.toString())
@@ -73,37 +72,6 @@ class UserInputFragmentAddress : Fragment(R.layout.fragment_user_input2) {
         binding.cityEditText.error = state.cityError
         binding.addressEditText.error = state.addressError
     }
-//
-//        // Задаем наблюдателей за изменением состояния
-//        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
-//            if (binding.countryEditText.text.toString() != state.country) {
-//                binding.countryEditText.setText(state.country, TextView.BufferType.EDITABLE)
-//            }
-//            if (binding.cityEditText.text.toString() != state.city) {
-//                binding.cityEditText.setText(state.city, TextView.BufferType.EDITABLE)
-//            }
-//            if (binding.addressEditText.text.toString() != state.address) {
-//                binding.addressEditText.setText(state.address, TextView.BufferType.EDITABLE)
-//            }
-//            binding.countryEditText.error = state.countryError
-//            binding.cityEditText.error = state.cityError
-//            binding.addressEditText.error = state.addressError
-//        })
-//
-//        // Обрабатываем намерения пользователя
-//        binding.countryEditText.addTextChangedListener { text ->
-//            viewModel.processIntent(Intent.CountryNameChanged(text.toString()))
-//        }
-//        binding.cityEditText.addTextChangedListener { text ->
-//            viewModel.processIntent(Intent.CityNameChanged(text.toString()))
-//        }
-//        binding.addressEditText.addTextChangedListener { text ->
-//            viewModel.processIntent(Intent.AddressChanged(text.toString()))
-//        }
-//        binding.nextButton.setOnClickListener {
-//            viewModel.processIntent(Intent.NextButtonClicked)
-//        }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

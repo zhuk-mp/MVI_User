@@ -8,6 +8,6 @@ data class WizardData (
     val country: String? = null,
     val city: String? = null,
     val address: String? = null,
-    val selectedTags: MutableList<String>? = null,
-    val check: Boolean? = null,
+    val selectedTags: MutableList<String> = mutableListOf(),
+    val check: Boolean = false,
 )

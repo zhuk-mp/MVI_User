@@ -1,44 +1,35 @@
 package ru.lt.mvi_user.model
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.lt.mvi_user.R
+import ru.lt.mvi_user.data.RetainedWizardData
 import ru.lt.mvi_user.data.Support
+import ru.lt.mvi_user.data.WizardData
+import ru.lt.mvi_user.state.ViewState
 import javax.inject.Inject
 
 @HiltViewModel
 class UserInputLastViewModel @Inject constructor(
-//    private val wizardCache: WizardCache,
+    val data: RetainedWizardData,
     val support: Support
 ) : ViewModel()
-//    , IUserInputViewModel
 {
-//
-//    val state: MutableLiveData<UserLastState> = MutableLiveData(UserLastState())
-//
-//    init {
-//        updateViewState {
-//            copy(
-//                firstName = wizardCache.firstName,
-//                lastName = wizardCache.firstName,
-//                dateOfBirth = wizardCache.firstName,
-//                country = wizardCache.country,
-//                city = wizardCache.city,
-//                address = wizardCache.address,
-//                selectedTags = wizardCache.selectedTags
-//            )
-//        }
-//    }
-//
-//    fun updateViewState(block: UserLastState.() -> UserLastState) {
-//        val oldState = state.value!!
-//        val newState = block(oldState)
-//        state.value = newState
-//    }
-//
-//
-//    override fun processIntent(intent: Intent) {
-//    }
-//
-//    override fun validateAndSave() {
-//    }
+
+    val viewState: MutableLiveData<ViewState.Last> = MutableLiveData()
+
+    init {
+        viewState.value = data.data.renderLastInput()
+    }
+
+    private fun WizardData.renderLastInput(): ViewState.Last = ViewState.Last(
+        name = name,
+        lastName = lastName,
+        bd = bd,
+        fullAddress = support.context.resources.getString(
+            R.string.full_address, country, city, address
+        ),
+        selectedTags = selectedTags,
+    )
 }
