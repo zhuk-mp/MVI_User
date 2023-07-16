@@ -68,6 +68,11 @@ class UserInputFragment : Fragment(R.layout.fragment_user_input) {
 
             setOnClickListener {
                 val calendar = Calendar.getInstance()
+
+                viewModel.viewState.value!!.bd?.let {
+                    calendar.time = it
+                }
+
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
                     { _, year, month, dayOfMonth ->
