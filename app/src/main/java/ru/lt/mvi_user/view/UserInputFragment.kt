@@ -78,29 +78,30 @@ class UserInputFragment : Fragment(R.layout.fragment_user_input) {
         if (binding.lastNameEditText.text.toString() != state.lastName) {
             binding.lastNameEditText.setText(state.lastName, TextView.BufferType.EDITABLE)
         }
-
-        binding.dateOfBirthEditText.filters = arrayOf(
-            InputFilter.LengthFilter(10),
-            InputFilter { source, _, _, _, _, _ ->
-                if (source in ". /-") {
-                    return@InputFilter ""
+        if (binding.dateOfBirthEditText.text.toString() != state.bd) {
+            binding.dateOfBirthEditText.filters = arrayOf(
+                InputFilter.LengthFilter(10),
+                InputFilter { source, _, _, _, _, _ ->
+                    if (source in ". /-") {
+                        return@InputFilter ""
+                    }
+                    null
                 }
-                null
-            }
-        )
-        binding.dateOfBirthEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.nextButton.isEnabled = true
-                if (start != s.length && (s.length == 2 || s.length == 5)) {
-                    binding.dateOfBirthEditText.setText(viewModel.support.getString(R.string.formatDate, s))
-                    binding.dateOfBirthEditText.setSelection(s.length + 1)
+            )
+            binding.dateOfBirthEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 }
-            }
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    binding.nextButton.isEnabled = true
+                    if (start != s.length && (s.length == 2 || s.length == 5)) {
+                        binding.dateOfBirthEditText.setText(viewModel.support.getString(R.string.formatDate, s))
+                        binding.dateOfBirthEditText.setSelection(s.length + 1)
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
+        }
         binding.firstNameEditText.error = state.nameError
         binding.lastNameEditText.error = state.lastNameError
         binding.dateOfBirthEditText.error = state.bdError
