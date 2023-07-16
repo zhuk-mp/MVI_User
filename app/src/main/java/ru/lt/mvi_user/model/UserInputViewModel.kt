@@ -9,11 +9,9 @@ import ru.lt.mvi_user.data.RetainedWizardData
 import ru.lt.mvi_user.data.Support
 import ru.lt.mvi_user.data.WizardData
 import ru.lt.mvi_user.state.ViewState
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,13 +40,12 @@ class UserInputViewModel @Inject constructor(
         data.data = data.data.processNameChange(Intent.SwitchEntered(check))
         viewState.value = data.data.renderNameInput()
     }
-    fun onBdEntered(date: String) {
+    fun onBdEntered(date: Date) {
         data.data = data.data.processNameChange(Intent.BdEntered(date))
         viewState.value = data.data.renderNameInput()
     }
     fun onNextEntered() {
         isClickFirst = false
-        data.log()
         viewState.value = data.data.renderNameInput()
         updateViewState {
                 copy(
@@ -58,7 +55,6 @@ class UserInputViewModel @Inject constructor(
                         R.id.action_userInputFragment_to_userInputFragment2,
                 )
             }
-        support.log(viewState.value.toString())
     }
     // Изменяем данные
     private fun WizardData.processNameChange(event: Intent): WizardData = when (event) {
@@ -75,8 +71,9 @@ class UserInputViewModel @Inject constructor(
         lastName = lastName,
         lastNameError = support.isValidFields(lastName, isClickFirst),
         bd = bd,
-        bdError = support.isValidFields(bd, isClickFirst = isClickFirst, isDate = true, support.isCorrectDate(bd)),
-        not18 = isValid18(bd, support.isCorrectDate(bd,1990)),
+        bdError = if (bd == null && !isClickFirst) support.getString(R.string.not_lose) else null,
+        not18 = bd?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDate()
+            ?.isBefore(LocalDate.now().minusYears(18)),
         check = check
     )
 
@@ -84,27 +81,5 @@ class UserInputViewModel @Inject constructor(
         val oldState = viewState.value!!
         val newState = block(oldState)
         viewState.value = newState
-    }
-
-    private fun isValid18(bd: String?, correctDate: Boolean): Boolean? {
-        if (bd == null || !correctDate)
-            return null
-        val format = SimpleDateFormat("dd.MM.yyyy", Locale.US)
-
-        try {
-            val date = format.parse(bd)
-
-            val calendar = Calendar.getInstance()
-            calendar.time = date!!
-
-            val cal = Calendar.getInstance()
-            cal.time = date
-            cal.add(Calendar.YEAR, 18)
-            return cal.time.before(Date())
-
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        return false
     }
 }

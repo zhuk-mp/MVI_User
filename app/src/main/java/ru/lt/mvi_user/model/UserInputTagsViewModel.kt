@@ -28,7 +28,6 @@ class UserInputTagsViewModel @Inject constructor(
         viewState.value = data.data.renderTagInput()
     }
     fun onNextEntered() {
-        data.log()
         viewState.value = data.data.renderTagInput()
         updateViewState {
             copy(
@@ -38,7 +37,6 @@ class UserInputTagsViewModel @Inject constructor(
                     R.id.action_userInputFragment3_to_userInputFragment4,
             )
         }
-        support.log(viewState.value.toString())
     }
 
     private fun WizardData.processTagChange(event: Intent.TagEntered): WizardData {

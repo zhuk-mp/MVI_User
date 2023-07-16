@@ -1,12 +1,14 @@
 package ru.lt.mvi_user.state
 
+import java.util.Date
+
 sealed class  ViewState {
     data class Name(
         val name: String? = null,
         val nameError: String? = null,
         val lastName: String? = null,
         val lastNameError: String? = null,
-        val bd: String? = null,
+        val bd: Date? = null,
         val bdError: String? = null,
         val not18: Boolean? = null,
         val next: Int? = null,
@@ -28,10 +30,10 @@ sealed class  ViewState {
         val selectedTags: MutableList<String>? = null,
     )
 
-    data class Last (
+    data class Last(
         val name: String? = null,
         val lastName: String? = null,
-        val bd: String? = null,
+        val bd: Date? = null,
         val fullAddress: String? = null,
         val selectedTags: MutableList<String>? = null,
     )

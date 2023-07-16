@@ -14,6 +14,8 @@ import ru.lt.mvi_user.R
 import ru.lt.mvi_user.databinding.FragmentUserInput4Binding
 import ru.lt.mvi_user.model.UserInputLastViewModel
 import ru.lt.mvi_user.state.ViewState
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -42,7 +44,8 @@ class UserInputFragmentLast : Fragment(R.layout.fragment_user_input4) {
     private fun updateLastInput(state: ViewState.Last) {
         binding.firstNameTextView.text = state.name
         binding.lastNameTextView.text = state.lastName
-        binding.dateOfBirthTextView.text = state.bd
+        val date = state.bd?.let { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(it) }
+        binding.dateOfBirthTextView.text = date
         binding.addressTextView.text = state.fullAddress
 
         state.selectedTags?.forEach { tag ->

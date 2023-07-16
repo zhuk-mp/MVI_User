@@ -38,7 +38,6 @@ class UserInputAddressViewModel @Inject constructor(
     }
     fun onNextEntered() {
         isClickFirst = false
-        data.log()
         viewState.value = data.data.renderAddressInput()
         updateViewState {
             copy(
@@ -48,7 +47,6 @@ class UserInputAddressViewModel @Inject constructor(
                     R.id.action_userInputFragment2_to_userInputFragment3,
             )
         }
-        support.log(viewState.value.toString())
     }
     // Изменяем данные
     private fun WizardData.processNameChange(event: Intent): WizardData = when (event) {

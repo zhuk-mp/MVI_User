@@ -1,9 +1,7 @@
 package ru.lt.mvi_user.view
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +15,9 @@ import ru.lt.mvi_user.R
 import ru.lt.mvi_user.databinding.FragmentUserInputBinding
 import ru.lt.mvi_user.model.UserInputViewModel
 import ru.lt.mvi_user.state.ViewState
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -59,14 +60,32 @@ class UserInputFragment : Fragment(R.layout.fragment_user_input) {
         binding.lastNameEditText.doAfterTextChanged {
             viewModel.onLastNameEntered(it.toString())
         }
+        binding.dateOfBirthEditText.apply {
 
-        binding.dateOfBirthEditText.doAfterTextChanged {
-            viewModel.onBdEntered(it.toString())
+            isFocusable = false
+            isFocusableInTouchMode = false
+            isClickable = true
+
+            setOnClickListener {
+                val calendar = Calendar.getInstance()
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, year, month, dayOfMonth ->
+                        calendar.set(year, month, dayOfMonth)
+                        val selectedDate = calendar.time
+                        viewModel.onBdEntered(selectedDate)
+                    },
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                )
+
+                datePickerDialog.show()
+            }
         }
         binding.switchFragments.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onSwitchEntered(isChecked)
         }
-
         binding.nextButton.setOnClickListener {
             viewModel.onNextEntered()
         }
@@ -78,29 +97,11 @@ class UserInputFragment : Fragment(R.layout.fragment_user_input) {
         if (binding.lastNameEditText.text.toString() != state.lastName) {
             binding.lastNameEditText.setText(state.lastName, TextView.BufferType.EDITABLE)
         }
-        if (binding.dateOfBirthEditText.text.toString() != state.bd) {
-            binding.dateOfBirthEditText.filters = arrayOf(
-                InputFilter.LengthFilter(10),
-                InputFilter { source, _, _, _, _, _ ->
-                    if (source in ". /-") {
-                        return@InputFilter ""
-                    }
-                    null
-                }
-            )
-            binding.dateOfBirthEditText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                }
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    binding.nextButton.isEnabled = true
-                    if (start != s.length && (s.length == 2 || s.length == 5)) {
-                        binding.dateOfBirthEditText.setText(viewModel.support.getString(R.string.formatDate, s))
-                        binding.dateOfBirthEditText.setSelection(s.length + 1)
-                    }
-                }
-                override fun afterTextChanged(s: Editable?) {
-                }
-            })
+        val date =
+            state.bd?.let { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(it) }
+        if (binding.dateOfBirthEditText.text.toString() != date) {
+            binding.nextButton.isEnabled = true
+            binding.dateOfBirthEditText.setText(date, TextView.BufferType.EDITABLE)
         }
         binding.firstNameEditText.error = state.nameError
         binding.lastNameEditText.error = state.lastNameError
